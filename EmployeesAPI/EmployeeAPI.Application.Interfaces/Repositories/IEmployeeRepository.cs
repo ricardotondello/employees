@@ -6,5 +6,7 @@ namespace EmployeeAPI.Application.Interfaces.Repositories
     {
         Task<Option<Employee.Domain.Employee>> CreateEmployeeAsync(Employee.Domain.Employee employee);
         Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id);
+
+        Task<Option<Employee.Domain.Employee>> GetEmployeeByRegionAsync(int regionId);
     }
 }

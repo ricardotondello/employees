@@ -5,7 +5,7 @@ namespace EmployeeAPI.Application.Interfaces.Services
 {
     public interface IRegionService
     {
-        Task<Region> AddAsync(Region region);
+        Task<Option<Region>> AddAsync(Region region);
         Task<Option<Region>> GetByIdAsync(int id);
 
     }

@@ -13,14 +13,19 @@ namespace EmployeeAPI.Controllers
     public class RegionController : BaseController
     {
         private readonly IRegionService _regionService;
+        private readonly IEmployeeService _employeeService;
         private static readonly IdValidator IdValidator = new IdValidator("Region Id");
-        public RegionController(IRegionService regionService)
+        private static readonly RegionValidator RegionValidator = new RegionValidator();
+        public RegionController(IRegionService regionService, IEmployeeService employeeService)
         {
             _regionService = regionService;
+            _employeeService = employeeService;
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Region))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAsync([FromRoute, Required] int id)
         {
             var validation = await IdValidator.ValidateAsync(id);
@@ -32,6 +37,41 @@ namespace EmployeeAPI.Controllers
             var maybeRegion = await _regionService.GetByIdAsync(id);
             return maybeRegion.IsSome() 
                 ? CreateResponse(HttpStatusCode.OK, maybeRegion.Value().ToContract()) 
+                : CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Region))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PostAsync([FromBody, Required] Contracts.Input.Region region)
+        {
+            var validation = await RegionValidator.ValidateAsync(region);
+            if (!validation.IsValid)
+            {
+                return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
+            }
+
+            var maybeRegion = await _regionService.AddAsync(region.ToDomain());
+            return maybeRegion.IsSome()
+                ? CreateResponse(HttpStatusCode.OK, maybeRegion.Value().ToContract())
+                : CreateResponse(HttpStatusCode.NoContent);
+        }
+        [HttpGet("{id}/employees")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.EmployeeAggregate))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PostAsync([FromRoute, Required] int id)
+        {
+            var validation = await IdValidator.ValidateAsync(id);
+            if (!validation.IsValid)
+            {
+                return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
+            }
+
+            var maybeEmployee = await _employeeService.GetEmployeeByRegionAsync(id);
+            return maybeEmployee.IsSome()
+                ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToAggregateContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
 

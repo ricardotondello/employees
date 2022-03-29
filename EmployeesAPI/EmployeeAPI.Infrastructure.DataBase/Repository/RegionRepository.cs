@@ -6,9 +6,9 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
 {
     public class RegionRepository : IRegionRepository
     {
-        public Task<Region> CreateRegionAsync(Region region)
+        public Task<Option<Region>> CreateRegionAsync(Region region)
         {
-            return Task.FromResult(region);
+            return Task.FromResult(Option<Region>.Some(region));
         }
 
         public Task<Option<Region>> GetByIdAsync(int id)

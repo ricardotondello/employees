@@ -12,7 +12,11 @@ namespace EmployeeAPI.Validators
 
             CascadeMode = CascadeMode.Stop;
 
-            RuleFor(id => id).NotEmpty().WithMessage($"{_parameterName} is invalid");
+            RuleFor(id => id)
+                .NotEmpty()
+                .Must(g => g != Guid.Empty)
+                .WithMessage($"{_parameterName} is invalid");
+            
         }
     }
 }

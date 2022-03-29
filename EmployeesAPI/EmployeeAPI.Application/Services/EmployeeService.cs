@@ -21,5 +21,10 @@ namespace EmployeeAPI.Application.Services
         {
             return _employeeRepository.GetByIdAsync(id);
         }
+
+        public Task<Option<Employee.Domain.Employee>> GetEmployeeByRegionAsync(int regionId)
+        {
+            return _employeeRepository.GetEmployeeByRegionAsync(regionId);
+        }
     }
 }
