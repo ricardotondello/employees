@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Employee.Domain\Employee.Domain.csproj" />
+    <ProjectReference Include="..\Employee.Toolkit\Employee.Toolkit.csproj" />
+  </ItemGroup>
+
+</Project>
