@@ -2,6 +2,7 @@
 using Employee.Toolkit;
 using EmployeeAPI.Application.Interfaces.Repositories;
 using EmployeeAPI.Infrastructure.DataBase.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeAPI.Infrastructure.DataBase.Repository
 {
@@ -20,9 +21,8 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
         }
 
         public Task<Option<Region>> GetByIdAsync(int id)
-        
         {
-            var region = _context.Regions.SingleOrDefault(s => s.Id == id);
+            var region = _context.Regions.Include(i=> i.Parent).SingleOrDefault(s => s.Id == id);
             if (region != null)
             {
                 return Task.FromResult(Option<Region>.Some(region.ToDomain()));

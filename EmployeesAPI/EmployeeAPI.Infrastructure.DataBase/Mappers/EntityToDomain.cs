@@ -7,6 +7,6 @@ namespace EmployeeAPI.Infrastructure.DataBase.Mappers
         public static Region ToDomain(this EmployeesAPI.Entities.Region region) =>
             region == null
                 ? null
-                : Region.Create(region.Id, region.Name, region.ToDomain());
+                : Region.Create(region.Id, region.Name, region.ParentId != null ? Region.Create(region.Parent.Id, region.Parent.Name, null) : null);
     }
 }

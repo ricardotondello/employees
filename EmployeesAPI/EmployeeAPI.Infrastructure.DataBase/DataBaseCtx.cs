@@ -1,6 +1,6 @@
-﻿using EmployeesAPI.Entities;
+﻿
+using EmployeesAPI.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace EmployeeAPI.Infrastructure.DataBase
 {
@@ -11,12 +11,16 @@ namespace EmployeeAPI.Infrastructure.DataBase
 
         public DataBaseCtx(DbContextOptions<DataBaseCtx> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Region>().ToTable("Region");
+            // modelBuilder.Entity<Region>().HasOne(tr => tr.Parent)
+            //     .WithOne()
+            //     //.HasForeignKey<Region>(tr => tr.ParentId)
+            //     .IsRequired(false).OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<EmployeesAPI.Entities.Employee>().ToTable("Employee");
         }
     }
