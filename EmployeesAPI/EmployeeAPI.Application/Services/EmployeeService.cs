@@ -16,5 +16,10 @@ namespace EmployeeAPI.Application.Services
         {
             return _employeeRepository.CreateEmployeeAsync(employee);
         }
+
+        public Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
+        {
+            return _employeeRepository.GetByIdAsync(id);
+        }
     }
 }

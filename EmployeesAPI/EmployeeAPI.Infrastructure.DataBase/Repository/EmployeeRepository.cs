@@ -9,5 +9,11 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
         {
             return Task.FromResult(Option<Employee.Domain.Employee>.Some(employee));
         }
+
+        public Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
+        {
+            return Task.FromResult(
+                Option<Employee.Domain.Employee>.Some(Employee.Domain.Employee.Create(id, "test", null)));
+        }
     }
 }
