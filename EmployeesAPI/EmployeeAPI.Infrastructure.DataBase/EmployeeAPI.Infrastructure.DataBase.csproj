@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeeAPI.Application.Interfaces\EmployeeAPI.Application.Interfaces.csproj" />
+    <ProjectReference Include="..\EmployeesAPI.Entities\EmployeesAPI.Entities.csproj" />
   </ItemGroup>
 
 </Project>

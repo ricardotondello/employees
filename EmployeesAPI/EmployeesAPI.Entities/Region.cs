@@ -1,18 +1,21 @@
-﻿namespace EmployeesAPI.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EmployeesAPI.Entities
 {
     public class Region
     {
-        public int Id { get; }
-        public string Name { get; }
-        public Region Parent { get; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //public Region Parent { get; set; }
 
-        private Region(int id, string name, Region parent)
+        public Region(int id, string name)
         {
             Id = id;
             Name = name;
-            Parent = parent;
         }
-
-        public static Region Create(int id, string name, Region parent) => new Region(id, name, parent);
+        
     }
 }
