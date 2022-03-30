@@ -9,18 +9,44 @@ namespace EmployeeAPI.Infrastructure.DataBase.Initializer
         {
             context.Database.EnsureCreated();
 
-            if (context.Regions.Any())
+            if (!context.Regions.Any())
             {
-                return; // DB has been seeded
-            }
-            
-            var regions = ReadRegionCSV().ToList();
+                var regions = ReadRegionCsv().ToList();
 
-            context.Regions.AddRange(regions);
-            context.SaveChanges();
+                context.Regions.AddRange(regions);
+                context.SaveChanges();
+            }
+
+            if (!context.Employees.Any())
+            {
+                var employees = ReadEmployeesCsv();
+                context.Employees.AddRange(employees);
+                context.SaveChanges();
+            }
         }
 
-        private static IEnumerable<Region> ReadRegionCSV()
+        private static IEnumerable<EmployeesAPI.Entities.Employee> ReadEmployeesCsv()
+        {
+            var filename = @"employees.csv";
+            if (!File.Exists(filename))
+            {
+                return Enumerable.Empty<EmployeesAPI.Entities.Employee>();
+            }
+            var employees = new List<EmployeesAPI.Entities.Employee>();
+            using var r = new ChoCSVLiteReader();
+            var recNum = r.ReadFile(filename).GetEnumerator();
+            while (recNum.MoveNext())
+            {
+                var values = recNum.Current;
+                var regionId = int.Parse(values[0]);
+                var employee = new EmployeesAPI.Entities.Employee(values[1], values[2], regionId);
+                employees.Add(employee);
+            }
+
+            return employees;
+        }
+
+        private static IEnumerable<Region> ReadRegionCsv()
         {
             var filename = @"regions.csv";
             if (!File.Exists(filename))
