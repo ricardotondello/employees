@@ -5,6 +5,7 @@ using EmployeeAPI.Application;
 using EmployeeAPI.Infrastructure.DataBase;
 using EmployeeAPI.Infrastructure.DataBase.Initializer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,12 @@ builder.Services.AddDbContext<DataBaseCtx>(options =>
 
 // Add services to the container.
 builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.ToString());
+});
 var app = builder.Build();
 
 CreateDbIfNotExists(app);
@@ -34,6 +40,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.Run();
 
