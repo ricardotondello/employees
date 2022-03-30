@@ -1,4 +1,5 @@
-﻿using Employee.Domain;
+﻿using System.Data;
+using Employee.Domain;
 using Employee.Toolkit;
 using EmployeeAPI.Application.Interfaces.Repositories;
 using EmployeeAPI.Infrastructure.DataBase.Mappers;
@@ -15,19 +16,34 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
             _context = context;
         }
 
-        public Task<Option<Region>> CreateRegionAsync(Region region)
+        public async Task<Option<Region>> CreateRegionAsync(Region region)
         {
-            return Task.FromResult(Option<Region>.Some(region));
+            var hasValue = await _context.Regions.AnyAsync(s => s.Id == region.Id);
+            var entity = region.ToEntity();
+            var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
+            if (hasValue)
+            {
+                _context.Regions.Update(entity);
+            }
+            else
+            {
+                _context.Regions.Add(entity);
+            }
+            var updates = await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            return updates > 0
+                ? Option<Region>.Some(region) 
+                : Option<Region>.None;
         }
 
-        public Task<Option<Region>> GetByIdAsync(int id)
+        public async Task<Option<Region>> GetByIdAsync(int id)
         {
-            var region = _context.Regions.Include(i=> i.Parent).SingleOrDefault(s => s.Id == id);
+            var region = await _context.Regions.Include(i=> i.Parent).SingleOrDefaultAsync(s => s.Id == id);
             if (region != null)
             {
-                return Task.FromResult(Option<Region>.Some(region.ToDomain()));
+                return Option<Region>.Some(region.ToDomain());
             }
-            return Task.FromResult(Option<Region>.None);
+            return Option<Region>.None;
      
         }
     }

@@ -13,6 +13,7 @@ namespace EmployeeAPI.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private static readonly GuidValidator GuidValidator = new GuidValidator("Employee Id");
+        private static readonly EmployeeValidator EmployeeValidator = new EmployeeValidator();
         public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
@@ -20,6 +21,8 @@ namespace EmployeeAPI.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.Employee))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAsync([FromRoute, Required] Guid id)
         {
             var validation = await GuidValidator.ValidateAsync(id);
@@ -33,5 +36,24 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.Employee))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> GetAsync([FromBody, Required] Contracts.Input.Employee employee)
+        {
+            var validation = await EmployeeValidator.ValidateAsync(employee);
+            if (!validation.IsValid)
+            {
+                return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
+            }
+
+            var maybeEmployee = await _employeeService.AddAsync(employee.ToDomain());
+            return maybeEmployee.IsSome()
+                ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
+                : CreateResponse(HttpStatusCode.NoContent);
+        }
+
     }
 }

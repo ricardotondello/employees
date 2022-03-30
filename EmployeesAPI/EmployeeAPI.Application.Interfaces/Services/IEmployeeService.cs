@@ -7,6 +7,6 @@ namespace EmployeeAPI.Application.Interfaces.Services
         Task<Option<Employee.Domain.Employee>> AddAsync(Employee.Domain.Employee employee);
         Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id);
 
-        Task<Option<Employee.Domain.Employee>> GetEmployeeByRegionAsync(int regionId);
+        Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId);
     }
 }

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace EmployeeAPI.Validators
 {
-    public class RegionValidator:AbstractValidator<Region>
+    public class RegionValidator : AbstractValidator<Region>
     {
         public RegionValidator()
         {

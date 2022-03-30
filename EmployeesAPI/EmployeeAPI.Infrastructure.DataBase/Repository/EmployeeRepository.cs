@@ -1,28 +1,82 @@
-﻿using Employee.Domain;
+﻿using System.Data;
 using Employee.Toolkit;
 using EmployeeAPI.Application.Interfaces.Repositories;
+using EmployeeAPI.Infrastructure.DataBase.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeAPI.Infrastructure.DataBase.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        public Task<Option<Employee.Domain.Employee>> CreateEmployeeAsync(Employee.Domain.Employee employee)
+        private readonly DataBaseCtx _context;
+
+        public EmployeeRepository(DataBaseCtx context)
         {
-            return Task.FromResult(Option<Employee.Domain.Employee>.Some(employee));
+            _context = context;
         }
 
-        public Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
+        public async Task<Option<Employee.Domain.Employee>> CreateEmployeeAsync(Employee.Domain.Employee employee)
         {
-            return Task.FromResult(
-                Option<Employee.Domain.Employee>.Some(Employee.Domain.Employee.Create(id, "test", "tt", null)));
+            var hasEmployee = await _context.Employees.Include(i => i.Region).AnyAsync(s => s.Id == employee.Id);
+            var entity = employee.ToEntity();
+            var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
+
+            if (hasEmployee)
+            {
+                _context.Employees.Update(entity);
+            }
+            else
+            {
+                _context.Employees.Add(entity);
+            }
+
+            var updates = await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+            
+            return updates > 0 
+                ? Option<Employee.Domain.Employee>.Some(employee) 
+                : Option<Employee.Domain.Employee>.None;
         }
 
-        public Task<Option<Employee.Domain.Employee>> GetEmployeeByRegionAsync(int regionId)
+        public async Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
         {
-            var region = Employee.Domain.Region.Create(regionId, $"Name {regionId}", Region.Create(0, "Name 0", null));
+            var employee = await _context.Employees.Include(i => i.Region).FirstOrDefaultAsync(s => s.Id == id);
+            if (employee != null)
+            {
+                return Option<Employee.Domain.Employee>.Some(employee.ToDomain());
+            }
+            return Option<Employee.Domain.Employee>.None;
+        }
 
-            var emp = Employee.Domain.Employee.Create(Guid.NewGuid(), "emp name", "hhh", region);
-            return Task.FromResult(Option<Employee.Domain.Employee>.Some(emp));
+        public async Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId)
+        {
+            var region = await _context.Regions
+                .SingleOrDefaultAsync(s => s.Id == regionId);
+
+            
+            if (region == null)
+            {
+                return Enumerable.Empty<Employee.Domain.Employee>();
+            }
+
+            var employees = _context.Employees
+                .FromSqlRaw("SELECT * FROM Employee e WITH(NOLOCK) WHERE e.RegionId in(" +
+                            "SELECT DISTINCT COALESCE(r3.Id, r2.Id , r.Id) AS Id " +
+                            "FROM Region r WITH(NOLOCK) LEFT JOIN " +
+                            "Region r2 WITH(NOLOCK) ON r.Id = r2.ParentId " +
+                            "LEFT JOIN Region r3 WITH(NOLOCK) ON r2.Id = r3.ParentId " +
+                            $"WHERE (R.Id = {region.Id} OR r2.Id = {region.Id} OR r3.Id = {region.Id}))")
+                .Include(i => i.Region)
+                .Include(i => i.Region.Parent)
+                .Include(i => i.Region.Parent.Parent);
+            if (employees.Any())
+            {
+                var employeesEnumerable = employees.Select(s => s.ToDomain()).AsEnumerable();
+
+                return employeesEnumerable;
+            }
+
+            return Enumerable.Empty<Employee.Domain.Employee>();
         }
     }
 }

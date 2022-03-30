@@ -69,9 +69,9 @@ namespace EmployeeAPI.Controllers
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 
-            var maybeEmployee = await _employeeService.GetEmployeeByRegionAsync(id);
-            return maybeEmployee.IsSome()
-                ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToAggregateContract())
+            var maybeEmployee = await _employeeService.GetEmployeesByRegionAsync(id);
+            return maybeEmployee.Any()
+                ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Select(s => s.ToAggregateContract()).ToList())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
 
