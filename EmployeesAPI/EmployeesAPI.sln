@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Domain", "Employee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesAPI.Entities", "EmployeesAPI.Entities\EmployeesAPI.Entities.csproj", "{15098245-B240-4DA5-9A8E-724D2AD6A2F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.DTOs", "EmployeeAPI.DTOs\EmployeeAPI.DTOs.csproj", "{D074B092-D604-4125-8E9D-8A2175228291}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Application", "EmployeeAPI.Application\EmployeeAPI.Application.csproj", "{262923EA-A8F3-4EBC-9572-CECE96C72C07}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Application.Interfaces", "EmployeeAPI.Application.Interfaces\EmployeeAPI.Application.Interfaces.csproj", "{FB09399C-9AF9-4D95-9014-E29A498A9525}"
@@ -19,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Contracts", "Em
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI", "EmployeeAPI\EmployeeAPI.csproj", "{E8969EC7-0B48-453F-998F-4E77DED4997E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Toolkit", "Employee.Toolkit\Employee.Toolkit.csproj", "{9E29BCF8-5EF2-494F-9262-98837CF1CCC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Toolkit", "Employee.Toolkit\Employee.Toolkit.csproj", "{9E29BCF8-5EF2-494F-9262-98837CF1CCC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{15098245-B240-4DA5-9A8E-724D2AD6A2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15098245-B240-4DA5-9A8E-724D2AD6A2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15098245-B240-4DA5-9A8E-724D2AD6A2F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D074B092-D604-4125-8E9D-8A2175228291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D074B092-D604-4125-8E9D-8A2175228291}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D074B092-D604-4125-8E9D-8A2175228291}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D074B092-D604-4125-8E9D-8A2175228291}.Release|Any CPU.Build.0 = Release|Any CPU
 		{262923EA-A8F3-4EBC-9572-CECE96C72C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{262923EA-A8F3-4EBC-9572-CECE96C72C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{262923EA-A8F3-4EBC-9572-CECE96C72C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
