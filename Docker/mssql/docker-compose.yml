@@ -1,0 +1,18 @@
+# docker build -t mssql-tondas:qa .
+
+version: '3.9'
+services:
+    sqlserver-tondas:
+        container_name: mssqlserver-tondas-qa
+        image: mssql-tondas:qa
+        ports:  
+          - "1433:1433"
+        environment:
+          - ACCEPT_EULA=Y
+          - SA_PASSWORD=P@ssw0rd!Tt2019
+          - MSSQL_PID=Express
+        networks:
+          my_network:
+
+networks:
+  my_network:
