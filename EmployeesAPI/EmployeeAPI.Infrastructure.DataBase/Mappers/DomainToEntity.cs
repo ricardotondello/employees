@@ -10,6 +10,6 @@
         public static EmployeesAPI.Entities.Region ToEntity(this Employee.Domain.Region region) =>
             region == null
                 ? null
-                : new EmployeesAPI.Entities.Region(region.Id, region.Name, region.Parent.Id);
+                : new EmployeesAPI.Entities.Region(region.Id, region.Name, region.Parent?.Id);
     }
 }

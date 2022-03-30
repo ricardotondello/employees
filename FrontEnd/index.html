@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Employees App</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script src="scripts.js"></script>
+
+    <h1>Add Region</h1>
+    <input placeholder="Region Id" id="region_id">
+    <input placeholder="Region Name" id="region_name">
+    <input placeholder="Region Parent Id" id="region_parent_id">
+    <p id="region_response"> </p>
+    <button onclick=AddRegion()>Add</button>
+
+
+    <br>
+    <h1>Add Employee</h1>
+    <input placeholder="Employee Name" id="employee_name">
+    <input placeholder="Employee Surname" id="employee_surname">
+    <input placeholder="Region Id" id="employee_region_id">
+    <p id="employee_response"> </p>
+    <button onclick=AddEmployee()>Add</button>
+
+    <br>
+    <h1>Get Employees under a Region</h1>
+    <input placeholder="Region Id" id="get_region_id">
+    <p id="get_employee_response"> </p>
+    <button onclick=GetEmployeeUnderRegion()>Search</button>
+  </body>
+</html>
