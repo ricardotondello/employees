@@ -4,17 +4,15 @@ namespace EmployeeAPI.Mapper
 {
     public static class ContractToDomain
     {
-        public static Employee.Domain.Region ToDomain(this EmployeeAPI.Contracts.Input.Region region)
-        {
-            return region == null
+        public static Employee.Domain.Region ToDomain(this Contracts.Input.Region? region) =>
+        (region == null
                 ? null
-                : Employee.Domain.Region.Create(region.Id, region.Name, region.RegionId > 0 ? Region.Create((int) region.RegionId) : null);
-        }
+                : Employee.Domain.Region.Create(region.Id, region.Name, region.RegionId > 0 ? Region.Create((int) region.RegionId) : null))!;
 
-        public static Employee.Domain.Employee ToDomain(this Contracts.Input.Employee employee) =>
-            employee == null
+        public static Employee.Domain.Employee ToDomain(this Contracts.Input.Employee? employee) =>
+            (employee == null
                 ? null
                 : Employee.Domain.Employee.Create(Guid.NewGuid(), employee.Name, employee.Surname,
-                    Region.Create(employee.RegionId));
+                    Region.Create(employee.RegionId)))!;
     }
 }

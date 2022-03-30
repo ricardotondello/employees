@@ -1,27 +1,27 @@
 ﻿namespace Employee.Toolkit
 {
-    public struct Option<T>
+    public readonly struct Option<T>
     {
         public static Option<T> None => default;
         public static Option<T> Some(T value) => new Option<T>(value);
 
-        readonly bool isSome;
-        readonly T value;
+        private readonly bool _isSome;
+        private readonly T _value;
 
-        Option(T value)
+        private Option(T value)
         {
-            this.value = value;
-            isSome = this.value is { };
+            _value = value;
+            _isSome = _value is { };
         }
 
         public bool IsSome()
         {
-            return isSome;
+            return _isSome;
         }
 
         public T Value()
         {
-            return this.value;
+            return _value;
         }
     }
 }

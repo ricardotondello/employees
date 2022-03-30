@@ -39,12 +39,9 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
         public async Task<Option<Region>> GetByIdAsync(int id)
         {
             var region = await _context.Regions.Include(i=> i.Parent).SingleOrDefaultAsync(s => s.Id == id);
-            if (region != null)
-            {
-                return Option<Region>.Some(region.ToDomain());
-            }
-            return Option<Region>.None;
-     
+            return region != null
+                ? Option<Region>.Some(region.ToDomain()) 
+                : Option<Region>.None;
         }
     }
 }

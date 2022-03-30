@@ -2,7 +2,7 @@
 
 namespace EmployeeAPI.Mapper
 {
-    public static class DomainToContractMapper
+    public static class DomainToContract
     {
         public static Contracts.Output.Region ToContract(this Employee.Domain.Region region) =>
             region == null
