@@ -4,8 +4,10 @@ namespace EmployeeAPI.Validators
 {
     public static class StringPropertyValidator
     {
-        private static readonly char[] InvalidChars = { '{', '}', '"', '\'' };
-        public static IRuleBuilderOptions<T, string> StringValidator<T>(this IRuleBuilder<T, string> ruleBuilder, string parameterName)
+        private static readonly char[] InvalidChars = {'{', '}', '"', '\''};
+
+        public static IRuleBuilderOptions<T, string> StringValidator<T>(this IRuleBuilder<T, string> ruleBuilder,
+            string parameterName)
         {
             return ruleBuilder
                 .Must(text => !string.IsNullOrWhiteSpace(text) &&

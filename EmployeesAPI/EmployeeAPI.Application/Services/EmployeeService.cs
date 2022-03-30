@@ -12,6 +12,7 @@ namespace EmployeeAPI.Application.Services
         {
             _employeeRepository = employeeRepository;
         }
+
         public Task<Option<Employee.Domain.Employee>> AddAsync(Employee.Domain.Employee employee)
         {
             return _employeeRepository.CreateEmployeeAsync(employee);

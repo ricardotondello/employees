@@ -29,18 +29,19 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
             {
                 _context.Regions.Add(entity);
             }
+
             var updates = await _context.SaveChangesAsync();
             await transaction.CommitAsync();
             return updates > 0
-                ? Option<Region>.Some(region) 
+                ? Option<Region>.Some(region)
                 : Option<Region>.None;
         }
 
         public async Task<Option<Region>> GetByIdAsync(int id)
         {
-            var region = await _context.Regions.Include(i=> i.Parent).SingleOrDefaultAsync(s => s.Id == id);
+            var region = await _context.Regions.Include(i => i.Parent).SingleOrDefaultAsync(s => s.Id == id);
             return region != null
-                ? Option<Region>.Some(region.ToDomain()) 
+                ? Option<Region>.Some(region.ToDomain())
                 : Option<Region>.None;
         }
     }

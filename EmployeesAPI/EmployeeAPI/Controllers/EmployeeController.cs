@@ -14,6 +14,7 @@ namespace EmployeeAPI.Controllers
         private readonly IEmployeeService _employeeService;
         private static readonly GuidValidator GuidValidator = new GuidValidator("Employee Id");
         private static readonly EmployeeValidator EmployeeValidator = new EmployeeValidator();
+
         public EmployeeController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
@@ -30,7 +31,7 @@ namespace EmployeeAPI.Controllers
             {
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
-        
+
             var maybeEmployee = await _employeeService.GetByIdAsync(id);
             return maybeEmployee.IsSome()
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
@@ -54,6 +55,5 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
-
     }
 }

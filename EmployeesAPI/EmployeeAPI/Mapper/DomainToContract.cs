@@ -12,7 +12,8 @@ namespace EmployeeAPI.Mapper
         public static Contracts.Output.Employee ToContract(this Employee.Domain.Employee employee) =>
             employee == null
                 ? null
-                : Contracts.Output.Employee.Create(employee.Id, employee.Name, employee.Surname, employee.Region.ToContract());
+                : Contracts.Output.Employee.Create(employee.Id, employee.Name, employee.Surname,
+                    employee.Region.ToContract());
 
         public static Contracts.Output.EmployeeAggregate ToAggregateContract(this Employee.Domain.Employee employee)
         {
@@ -26,7 +27,7 @@ namespace EmployeeAPI.Mapper
 
             var regions = new List<Region>();
             regions.Add(employee.Region.ToContract());
-            
+
             if (employee.Region.Parent != null) //TODO: make it recursive
             {
                 regions.Add(employee.Region.Parent.ToContract());

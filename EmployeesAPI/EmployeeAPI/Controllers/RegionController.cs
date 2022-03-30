@@ -16,6 +16,7 @@ namespace EmployeeAPI.Controllers
         private readonly IEmployeeService _employeeService;
         private static readonly IdValidator IdValidator = new IdValidator("Region Id");
         private static readonly RegionValidator RegionValidator = new RegionValidator();
+
         public RegionController(IRegionService regionService, IEmployeeService employeeService)
         {
             _regionService = regionService;
@@ -35,8 +36,8 @@ namespace EmployeeAPI.Controllers
             }
 
             var maybeRegion = await _regionService.GetByIdAsync(id);
-            return maybeRegion.IsSome() 
-                ? CreateResponse(HttpStatusCode.OK, maybeRegion.Value().ToContract()) 
+            return maybeRegion.IsSome()
+                ? CreateResponse(HttpStatusCode.OK, maybeRegion.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
 
@@ -57,6 +58,7 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeRegion.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
+
         [HttpGet("{id}/employees")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.EmployeeAggregate))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,6 +76,5 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Select(s => s.ToAggregateContract()).ToList())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
-
     }
 }

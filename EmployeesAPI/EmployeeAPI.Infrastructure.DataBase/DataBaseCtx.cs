@@ -7,8 +7,12 @@ namespace EmployeeAPI.Infrastructure.DataBase
         public DbSet<EmployeesAPI.Entities.Region> Regions { get; set; }
         public DbSet<EmployeesAPI.Entities.Employee> Employees { get; set; }
 
-        public DataBaseCtx(DbContextOptions<DataBaseCtx> options) : base(options) { }
+        public DataBaseCtx(DbContextOptions<DataBaseCtx> options) : base(options)
+        {
+        }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
     }
 }

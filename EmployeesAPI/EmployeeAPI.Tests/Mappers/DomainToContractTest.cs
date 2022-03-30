@@ -20,7 +20,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_ToContract_NotNull()
         {
-            var domain = Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname",Region.Create(1));
+            var domain = Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname", Region.Create(1));
             var result = domain.ToContract();
             result.Should().NotBeNull();
             result.Id.Should().NotBeEmpty();

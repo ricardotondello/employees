@@ -32,6 +32,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Initializer
             {
                 return Enumerable.Empty<EmployeesAPI.Entities.Employee>();
             }
+
             var employees = new List<EmployeesAPI.Entities.Employee>();
             using var r = new ChoCSVLiteReader();
             var recNum = r.ReadFile(filename).GetEnumerator();
@@ -53,6 +54,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Initializer
             {
                 return Enumerable.Empty<Region>();
             }
+
             var regions = new List<Region>();
             using var r = new ChoCSVLiteReader();
             var recNum = r.ReadFile(filename).GetEnumerator();
@@ -61,8 +63,8 @@ namespace EmployeeAPI.Infrastructure.DataBase.Initializer
                 var values = recNum.Current;
 
                 var parentId = values.Length > 1
-                    ? int.TryParse(values[2], out var value) ? value : (int?)null
-                    : (int?)null;
+                    ? int.TryParse(values[2], out var value) ? value : (int?) null
+                    : (int?) null;
                 var region = new Region(int.Parse(values[1]), values[0], parentId);
                 regions.Add(region);
             }

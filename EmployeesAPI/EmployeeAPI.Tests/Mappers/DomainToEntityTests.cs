@@ -20,7 +20,8 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_DomainToEntity_NotNull()
         {
-            var domain = Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname", Region.Create(1, "name", null));
+            var domain =
+                Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname", Region.Create(1, "name", null));
             var result = domain.ToEntity();
             result.Should().NotBeNull();
             result.Id.Should().NotBeEmpty();

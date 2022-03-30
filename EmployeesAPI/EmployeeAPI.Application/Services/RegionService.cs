@@ -13,7 +13,7 @@ namespace EmployeeAPI.Application.Services
         {
             _regionRepository = regionRepository;
         }
-        
+
         public Task<Option<Region>> AddAsync(Region region)
         {
             return _regionRepository.CreateRegionAsync(region);

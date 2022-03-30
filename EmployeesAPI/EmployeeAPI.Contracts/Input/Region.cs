@@ -6,6 +6,7 @@ namespace EmployeeAPI.Contracts.Input
     {
         public int Id { get; }
         public string Name { get; }
+
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? RegionId { get; }
 

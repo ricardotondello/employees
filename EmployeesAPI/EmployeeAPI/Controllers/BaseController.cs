@@ -9,13 +9,13 @@ namespace EmployeeAPI.Controllers
         {
             return new ObjectResult(value)
             {
-                StatusCode = (int)statusCode
+                StatusCode = (int) statusCode
             };
         }
+
         protected IActionResult CreateResponse(HttpStatusCode statusCode)
         {
             return CreateResponse(statusCode, default(object));
         }
     }
-
 }

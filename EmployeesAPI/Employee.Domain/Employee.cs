@@ -5,7 +5,7 @@
         public Guid Id { get; }
         public string Name { get; }
         public string Surname { get; }
-        public Region Region { get;  }
+        public Region Region { get; }
 
         private Employee(Guid id, string name, string surname, Region region)
         {

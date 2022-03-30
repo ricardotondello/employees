@@ -5,9 +5,10 @@ namespace EmployeeAPI.Mapper
     public static class ContractToDomain
     {
         public static Employee.Domain.Region ToDomain(this Contracts.Input.Region? region) =>
-        (region == null
+            (region == null
                 ? null
-                : Employee.Domain.Region.Create(region.Id, region.Name, region.RegionId > 0 ? Region.Create((int) region.RegionId) : null))!;
+                : Employee.Domain.Region.Create(region.Id, region.Name,
+                    region.RegionId > 0 ? Region.Create((int) region.RegionId) : null))!;
 
         public static Employee.Domain.Employee ToDomain(this Contracts.Input.Employee? employee) =>
             (employee == null

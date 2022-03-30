@@ -8,7 +8,8 @@ namespace EmployeeAPI.Validators
         private static readonly ValidationResult ValidationResult =
             new ValidationResult(new[]
             {
-                new ValidationFailure(typeof(T).ToString(), "Parameter could not be validated. Make sure it has the correct format")
+                new ValidationFailure(typeof(T).ToString(),
+                    "Parameter could not be validated. Make sure it has the correct format")
             });
 
         public override ValidationResult Validate(ValidationContext<T> context)

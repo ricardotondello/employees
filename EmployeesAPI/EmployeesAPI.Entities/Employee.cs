@@ -9,6 +9,7 @@ namespace EmployeesAPI.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; set; }
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public virtual Region Region { get; set; }

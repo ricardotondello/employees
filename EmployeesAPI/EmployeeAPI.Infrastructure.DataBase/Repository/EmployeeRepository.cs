@@ -32,9 +32,9 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
 
             var updates = await _context.SaveChangesAsync();
             await transaction.CommitAsync();
-            
-            return updates > 0 
-                ? Option<Employee.Domain.Employee>.Some(employee) 
+
+            return updates > 0
+                ? Option<Employee.Domain.Employee>.Some(employee)
                 : Option<Employee.Domain.Employee>.None;
         }
 
@@ -45,6 +45,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
             {
                 return Option<Employee.Domain.Employee>.Some(employee.ToDomain());
             }
+
             return Option<Employee.Domain.Employee>.None;
         }
 
@@ -53,7 +54,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
             var region = await _context.Regions
                 .SingleOrDefaultAsync(s => s.Id == regionId);
 
-            
+
             if (region == null)
             {
                 return Enumerable.Empty<Employee.Domain.Employee>();

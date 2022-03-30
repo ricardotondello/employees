@@ -19,7 +19,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     });
 
 builder.Services.AddDbContext<DataBaseCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(true));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+        .EnableSensitiveDataLogging(true));
 
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -27,14 +28,11 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.CustomSchemaIds(type => type.ToString());
-});
+builder.Services.AddSwaggerGen(options => { options.CustomSchemaIds(type => type.ToString()); });
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name:  MyAllowSpecificOrigins,
+    options.AddPolicy(name: MyAllowSpecificOrigins,
         builder =>
         {
             builder.AllowAnyOrigin()
@@ -72,6 +70,5 @@ static void CreateDbIfNotExists(IHost host)
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<DataBaseCtx>();
         DbInitializer.Initialize(context);
-        
     }
 }
