@@ -43,7 +43,10 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-CreateDbIfNotExists(app);
+if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]))
+{
+    CreateDbIfNotExists(app);
+}
 
 // Configure the HTTP request pipeline.
 
