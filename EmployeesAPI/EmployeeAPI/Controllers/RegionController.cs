@@ -14,13 +14,15 @@ namespace EmployeeAPI.Controllers
     {
         private readonly IRegionService _regionService;
         private readonly IEmployeeService _employeeService;
+        private readonly ILogger<RegionController> _logger;
         private static readonly IdValidator IdValidator = new IdValidator("Region Id");
         private static readonly RegionValidator RegionValidator = new RegionValidator();
 
-        public RegionController(IRegionService regionService, IEmployeeService employeeService)
+        public RegionController(IRegionService regionService, IEmployeeService employeeService, ILogger<RegionController> logger)
         {
             _regionService = regionService;
             _employeeService = employeeService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -32,6 +34,8 @@ namespace EmployeeAPI.Controllers
             var validation = await IdValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
+                _logger.LogWarning("IdValidator Validation Failed, Errors:{errors}",
+                    validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 
@@ -50,6 +54,8 @@ namespace EmployeeAPI.Controllers
             var validation = await RegionValidator.ValidateAsync(region);
             if (!validation.IsValid)
             {
+                _logger.LogWarning("RegionValidator Validation Failed, Errors:{errors}",
+                    validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 
@@ -68,6 +74,8 @@ namespace EmployeeAPI.Controllers
             var validation = await IdValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
+                _logger.LogWarning("IdValidator Validation Failed, Errors:{errors}",
+                    validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 

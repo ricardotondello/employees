@@ -12,12 +12,14 @@ namespace EmployeeAPI.Controllers
     public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;
+        private readonly ILogger<EmployeeController> _logger;
         private static readonly GuidValidator GuidValidator = new GuidValidator("Employee Id");
         private static readonly EmployeeValidator EmployeeValidator = new EmployeeValidator();
 
-        public EmployeeController(IEmployeeService employeeService)
+        public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -29,6 +31,8 @@ namespace EmployeeAPI.Controllers
             var validation = await GuidValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
+                _logger.LogWarning("GuidValidator Validation Failed, Errors:{errors}", 
+                    validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 
@@ -47,6 +51,8 @@ namespace EmployeeAPI.Controllers
             var validation = await EmployeeValidator.ValidateAsync(employee);
             if (!validation.IsValid)
             {
+                _logger.LogWarning("EmployeeValidator Validation Failed, Errors:{errors}",
+                    validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 

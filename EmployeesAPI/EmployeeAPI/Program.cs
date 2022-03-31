@@ -5,7 +5,7 @@ using EmployeeAPI.Application;
 using EmployeeAPI.Infrastructure.DataBase;
 using EmployeeAPI.Infrastructure.DataBase.Initializer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +40,11 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+
+// NLog: Setup NLog for Dependency injection
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
 
 var app = builder.Build();
 
