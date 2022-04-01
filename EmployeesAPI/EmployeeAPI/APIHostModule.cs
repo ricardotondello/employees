@@ -8,6 +8,7 @@ namespace EmployeeAPI
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<RegionController>();
+            builder.RegisterType<EmployeeController>();
         }
     }
 }

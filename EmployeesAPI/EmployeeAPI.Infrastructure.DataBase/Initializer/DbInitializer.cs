@@ -19,7 +19,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Initializer
 
             if (!context.Employees.Any())
             {
-                var employees = ReadEmployeesCsv();
+                var employees = ReadEmployeesCsv().ToList();
                 context.Employees.AddRange(employees);
                 context.SaveChanges();
             }
