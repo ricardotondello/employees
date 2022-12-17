@@ -1,0 +1,15 @@
+version: '3.9'
+services:      
+    sqlserver:
+        container_name: sb-profile-mssql
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:  
+          - "1433:1433"
+        environment:
+          - ACCEPT_EULA=Y
+          - SA_PASSWORD=P@ssw0rd!Tt5Q1
+        networks:
+          my_network:
+
+networks:
+  my_network:

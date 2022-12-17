@@ -11,7 +11,7 @@ namespace EmployeeAPI.Contracts.Input
         public int? RegionId { get; }
 
         [JsonConstructor]
-        public Region(int id, string name, int? regionId)
+        private Region(int id, string name, int? regionId)
         {
             Id = id;
             Name = name;

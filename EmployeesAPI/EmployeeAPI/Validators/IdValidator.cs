@@ -4,16 +4,13 @@ namespace EmployeeAPI.Validators
 {
     internal class IdValidator : BaseValidator<int>
     {
-        private readonly string _parameterName = "Id";
-
-        public IdValidator(string parameterName = null)
+        public IdValidator(string parameterName)
         {
-            if (!string.IsNullOrEmpty(parameterName))
-                _parameterName = parameterName;
-
             CascadeMode = CascadeMode.Stop;
 
-            RuleFor(id => id).GreaterThan(0).WithMessage($"{_parameterName} is invalid");
+            RuleFor(id => id)
+                .GreaterThan(0)
+                .WithMessage($"{parameterName} is invalid");
         }
     }
 }

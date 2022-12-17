@@ -10,7 +10,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_EntityToDomain_Null()
         {
-            EmployeesAPI.Entities.Employee entity = null;
+            EmployeesAPI.Entities.Employee entity = null!;
             var result = entity.ToDomain();
             result.Should().BeNull();
         }
@@ -29,7 +29,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_EntityToDomain_Null()
         {
-            EmployeesAPI.Entities.Region entity = null;
+            EmployeesAPI.Entities.Region entity = null!;
             var result = entity.ToDomain();
             result.Should().BeNull();
         }

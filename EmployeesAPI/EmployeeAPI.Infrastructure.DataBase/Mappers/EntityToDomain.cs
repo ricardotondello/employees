@@ -8,7 +8,7 @@ namespace EmployeeAPI.Infrastructure.DataBase.Mappers
             (region == null
                 ? null
                 : Region.Create(region.Id, region.Name,
-                    region.ParentId != null && region.Parent != null
+                    region is {ParentId: { }, Parent: { }}
                         ? Region.Create(region.Parent.Id, region.Parent.Name, null)
                         : null))!;
 

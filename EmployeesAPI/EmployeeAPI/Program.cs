@@ -10,20 +10,20 @@ using NLog.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-    .ConfigureContainer<ContainerBuilder>(builder
+    .ConfigureContainer<ContainerBuilder>(containerBuilder
         =>
     {
-        builder.RegisterModule(new ApplicationModule());
-        builder.RegisterModule(new RepositoryModule());
-        builder.RegisterModule(new APIHostModule());
+        containerBuilder.RegisterModule(new ApplicationModule());
+        containerBuilder.RegisterModule(new RepositoryModule());
+        containerBuilder.RegisterModule(new APIHostModule());
     });
 
 builder.Services.AddDbContext<DataBaseCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!)
         .EnableSensitiveDataLogging(true));
 
 // Add services to the container.
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
@@ -32,10 +32,10 @@ builder.Services.AddSwaggerGen(options => { options.CustomSchemaIds(type => type
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-        builder =>
+    options.AddPolicy(name: myAllowSpecificOrigins,
+        policyBuilder =>
         {
-            builder.AllowAnyOrigin()
+            policyBuilder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -48,7 +48,7 @@ builder.Host.UseNLog();
 
 var app = builder.Build();
 
-if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]))
+if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]!))
 {
     CreateDbIfNotExists(app);
 }
@@ -57,7 +57,7 @@ if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]))
 
 app.UseHttpsRedirection();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthorization();
 

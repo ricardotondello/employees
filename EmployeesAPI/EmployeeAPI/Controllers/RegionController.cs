@@ -10,6 +10,7 @@ namespace EmployeeAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
     public class RegionController : BaseController
     {
         private readonly IRegionService _regionService;

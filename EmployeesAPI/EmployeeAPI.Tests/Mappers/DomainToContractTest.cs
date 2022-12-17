@@ -12,7 +12,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_ToContract_Null()
         {
-            Employee.Domain.Employee domain = null;
+            Employee.Domain.Employee domain = null!;
             var result = domain.ToContract();
             result.Should().BeNull();
         }
@@ -33,7 +33,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_ToContract_Null()
         {
-            Employee.Domain.Region domain = null;
+            Employee.Domain.Region domain = null!;
             var result = domain.ToContract();
             result.Should().BeNull();
         }
@@ -41,7 +41,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_ToContract_NotNull()
         {
-            var domain = Employee.Domain.Region.Create(1, "name", null);
+            var domain = Employee.Domain.Region.Create(1, "name", null!);
             var result = domain.ToContract();
             result.Should().NotBeNull();
             result.Id.Should().Be(1);

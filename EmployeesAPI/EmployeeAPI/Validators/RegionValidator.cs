@@ -8,7 +8,7 @@ namespace EmployeeAPI.Validators
         public RegionValidator()
         {
             CascadeMode = CascadeMode.Stop;
-            RuleFor(r => r.Id).SetValidator(new IdValidator());
+            RuleFor(r => r.Id).SetValidator(new IdValidator("Id"));
             RuleFor(r => r.Name).StringValidator("Name");
         }
     }

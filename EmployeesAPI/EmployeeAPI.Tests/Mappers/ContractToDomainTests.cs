@@ -10,7 +10,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_ToDomain_Null()
         {
-            Contracts.Input.Employee contract = null;
+            Contracts.Input.Employee contract = null!;
             var result = contract.ToDomain();
             result.Should().BeNull();
         }
@@ -29,7 +29,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_ToDomain_Null()
         {
-            Contracts.Input.Region contract = null;
+            Contracts.Input.Region contract = null!;
             var result = contract.ToDomain();
             result.Should().BeNull();
         }

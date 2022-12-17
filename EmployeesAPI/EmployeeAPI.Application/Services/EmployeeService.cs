@@ -13,19 +13,12 @@ namespace EmployeeAPI.Application.Services
             _employeeRepository = employeeRepository;
         }
 
-        public Task<Option<Employee.Domain.Employee>> AddAsync(Employee.Domain.Employee employee)
-        {
-            return _employeeRepository.CreateEmployeeAsync(employee);
-        }
+        public Task<Option<Employee.Domain.Employee>> AddAsync(Employee.Domain.Employee employee) =>
+            _employeeRepository.CreateEmployeeAsync(employee);
 
-        public Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
-        {
-            return _employeeRepository.GetByIdAsync(id);
-        }
+        public Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id) => _employeeRepository.GetByIdAsync(id);
 
-        public Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId)
-        {
-            return _employeeRepository.GetEmployeesByRegionAsync(regionId);
-        }
+        public Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId) =>
+            _employeeRepository.GetEmployeesByRegionAsync(regionId);
     }
 }

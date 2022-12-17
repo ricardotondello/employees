@@ -9,7 +9,7 @@ namespace EmployeeAPI.Contracts.Input
         public int RegionId { get; }
 
         [JsonConstructor]
-        public Employee(string name, string surname, int regionId)
+        private Employee(string name, string surname, int regionId)
         {
             Name = name;
             RegionId = regionId;

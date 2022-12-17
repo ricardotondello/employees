@@ -14,6 +14,6 @@
         }
 
         public static Region Create(int id, string name, Region parent) => new Region(id, name, parent);
-        public static Region Create(int id) => new Region(id, string.Empty, null);
+        public static Region Create(int id) => new Region(id, string.Empty, null!);
     }
 }

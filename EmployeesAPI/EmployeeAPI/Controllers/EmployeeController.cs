@@ -9,6 +9,7 @@ namespace EmployeeAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
     public class EmployeeController : BaseController
     {
         private readonly IEmployeeService _employeeService;

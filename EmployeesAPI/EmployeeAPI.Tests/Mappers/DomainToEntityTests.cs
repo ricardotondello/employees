@@ -12,7 +12,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Employee_DomainToEntity_Null()
         {
-            Employee.Domain.Employee domain = null;
+            Employee.Domain.Employee domain = null!;
             var result = domain.ToEntity();
             result.Should().BeNull();
         }
@@ -21,7 +21,7 @@ namespace EmployeeAPI.Tests.Mappers
         public void Employee_DomainToEntity_NotNull()
         {
             var domain =
-                Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname", Region.Create(1, "name", null));
+                Employee.Domain.Employee.Create(Guid.NewGuid(), "name", "surname", Region.Create(1, "name", null!));
             var result = domain.ToEntity();
             result.Should().NotBeNull();
             result.Id.Should().NotBeEmpty();
@@ -33,7 +33,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_DomainToEntity_Null()
         {
-            Employee.Domain.Region domain = null;
+            Employee.Domain.Region domain = null!;
             var result = domain.ToEntity();
             result.Should().BeNull();
         }
@@ -41,7 +41,7 @@ namespace EmployeeAPI.Tests.Mappers
         [Test]
         public void Region_DomainToEntity_NotNull()
         {
-            var domain = Employee.Domain.Region.Create(1, "name", null);
+            var domain = Employee.Domain.Region.Create(1, "name", null!);
             var result = domain.ToEntity();
             result.Should().NotBeNull();
             result.Id.Should().Be(1);
