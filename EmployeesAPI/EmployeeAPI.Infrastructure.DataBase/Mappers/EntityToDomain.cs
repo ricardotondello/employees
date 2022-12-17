@@ -12,10 +12,18 @@ namespace EmployeeAPI.Infrastructure.DataBase.Mappers
                         ? Region.Create(region.Parent.Id, region.Parent.Name, null)
                         : null))!;
 
+        public static IEnumerable<Employee.Domain.Region> ToDomain(
+            this IEnumerable<EmployeesAPI.Entities.Region> regions) =>
+            regions.Select(s => s.ToDomain());
+
         public static Employee.Domain.Employee ToDomain(this EmployeesAPI.Entities.Employee? employee) =>
             (employee == null
                 ? null
                 : Employee.Domain.Employee.Create(employee.Id, employee.Name, employee.Surname,
                     employee.Region.ToDomain()))!;
+
+        public static IEnumerable<Employee.Domain.Employee> ToDomain(
+            this IEnumerable<EmployeesAPI.Entities.Employee> employees)
+            => employees.Select(s => s.ToDomain());
     }
 }

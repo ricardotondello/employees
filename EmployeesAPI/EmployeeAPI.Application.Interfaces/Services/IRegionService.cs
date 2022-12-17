@@ -7,5 +7,6 @@ namespace EmployeeAPI.Application.Interfaces.Services
     {
         Task<Option<Region>> AddAsync(Region region);
         Task<Option<Region>> GetByIdAsync(int id);
+        Task<IEnumerable<Region>> GetAllAsync();
     }
 }

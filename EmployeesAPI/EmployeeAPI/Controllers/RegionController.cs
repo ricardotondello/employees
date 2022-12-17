@@ -85,5 +85,13 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Select(s => s.ToAggregateContract()).ToList())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
+        
+        [HttpGet("All")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Region>))]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var regions = await _regionService.GetAllAsync();
+            return CreateResponse(HttpStatusCode.OK, regions.ToContract());
+        }
     }
 }

@@ -17,5 +17,8 @@ namespace EmployeeAPI.Application.Services
         public Task<Option<Region>> AddAsync(Region region) => _regionRepository.CreateRegionAsync(region);
 
         public Task<Option<Region>> GetByIdAsync(int id) => _regionRepository.GetByIdAsync(id);
+
+        public Task<IEnumerable<Region>> GetAllAsync()
+            => _regionRepository.GetAllAsync();
     }
 }

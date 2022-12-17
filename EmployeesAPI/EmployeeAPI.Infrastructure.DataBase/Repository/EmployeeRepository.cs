@@ -79,5 +79,13 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
 
             return Enumerable.Empty<Employee.Domain.Employee>();
         }
+
+        public async Task<IEnumerable<Employee.Domain.Employee>> GetAllAsync()
+        {
+            var employees = await _context.Employees.Include(i => i.Region)
+                .ToListAsync();
+            
+            return employees.ToDomain();
+        }
     }
 }

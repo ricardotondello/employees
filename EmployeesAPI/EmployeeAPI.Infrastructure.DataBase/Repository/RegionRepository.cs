@@ -44,5 +44,11 @@ namespace EmployeeAPI.Infrastructure.DataBase.Repository
                 ? Option<Region>.Some(region.ToDomain())
                 : Option<Region>.None;
         }
+
+        public async Task<IEnumerable<Region>> GetAllAsync()
+        {
+            var regions = await _context.Regions.Include(i => i.Parent).ToListAsync();
+            return regions.ToDomain();
+        }
     }
 }

@@ -9,12 +9,18 @@ namespace EmployeeAPI.Mapper
                 ? null
                 : Contracts.Output.Region.Create(region.Id, region.Name);
 
+        public static IEnumerable<Contracts.Output.Region> ToContract(this IEnumerable<Employee.Domain.Region> regions)
+            => regions.Select(s => s.ToContract());
+        
         public static Contracts.Output.Employee ToContract(this Employee.Domain.Employee employee) =>
             employee == null
                 ? null
                 : Contracts.Output.Employee.Create(employee.Id, employee.Name, employee.Surname,
                     employee.Region.ToContract());
 
+        public static IEnumerable<Contracts.Output.Employee> ToContract(this IEnumerable<Employee.Domain.Employee> employees) =>
+            employees.Select(s => s.ToContract());
+        
         public static Contracts.Output.EmployeeAggregate ToAggregateContract(this Employee.Domain.Employee employee)
         {
             if (employee == null)

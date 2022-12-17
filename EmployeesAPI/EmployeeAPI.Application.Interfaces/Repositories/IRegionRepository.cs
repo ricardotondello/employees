@@ -7,5 +7,6 @@ namespace EmployeeAPI.Application.Interfaces.Repositories
     {
         Task<Option<Region>> CreateRegionAsync(Region region);
         Task<Option<Region>> GetByIdAsync(int id);
+        Task<IEnumerable<Region>> GetAllAsync();
     }
 }

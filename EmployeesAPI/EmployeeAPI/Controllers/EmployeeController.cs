@@ -62,5 +62,13 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
+        
+        [HttpGet("All")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Contracts.Output.Employee>))]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var maybeEmployees = await _employeeService.GetAllAsync();
+            return CreateResponse(HttpStatusCode.OK, maybeEmployees.ToContract());
+        }
     }
 }
