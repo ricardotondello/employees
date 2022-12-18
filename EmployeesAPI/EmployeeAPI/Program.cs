@@ -1,9 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EmployeeAPI;
-using EmployeeAPI.Application;
-using EmployeeAPI.Infrastructure.DataBase;
-using EmployeeAPI.Infrastructure.DataBase.Initializer;
+using Employee.Application;
+using Employee.Infrastructure.DataBase;
+using Employee.Infrastructure.DataBase.Initializer;
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
 

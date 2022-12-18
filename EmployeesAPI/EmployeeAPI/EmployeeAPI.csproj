@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmployeeAPI.Application.Interfaces\EmployeeAPI.Application.Interfaces.csproj" />
-    <ProjectReference Include="..\EmployeeAPI.Application\EmployeeAPI.Application.csproj" />
-    <ProjectReference Include="..\EmployeeAPI.Contracts\EmployeeAPI.Contracts.csproj" />
-    <ProjectReference Include="..\EmployeeAPI.Infrastructure.DataBase\EmployeeAPI.Infrastructure.DataBase.csproj" />
+    <ProjectReference Include="..\Employee.Application.Interfaces\Employee.Application.Interfaces.csproj" />
+    <ProjectReference Include="..\Employee.Application\Employee.Application.csproj" />
+    <ProjectReference Include="..\Employee.Contracts\Employee.Contracts.csproj" />
+    <ProjectReference Include="..\Employee.Infrastructure.DataBase\Employee.Infrastructure.DataBase.csproj" />
   </ItemGroup>
 
   <ItemGroup>

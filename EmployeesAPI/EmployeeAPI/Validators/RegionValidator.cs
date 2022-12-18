@@ -1,4 +1,4 @@
-﻿using EmployeeAPI.Contracts.Input;
+﻿using Employee.Contracts.Input;
 using FluentValidation;
 
 namespace EmployeeAPI.Validators

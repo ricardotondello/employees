@@ -1,4 +1,6 @@
-﻿namespace Employee.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace Employee.Contracts.Output;
 
 public class Employee
 {
@@ -7,14 +9,15 @@ public class Employee
     public string Surname { get; }
     public Region Region { get; }
 
+    [JsonConstructor]
     private Employee(Guid id, string name, string surname, Region region)
     {
         Id = id;
         Name = name;
-        Surname = surname;
         Region = region;
+        Surname = surname;
     }
 
     public static Employee Create(Guid id, string name, string surname, Region region) =>
-        new(Guid.NewGuid(), name, surname, region);
+        new Employee(Guid.NewGuid(), name, surname, region);
 }

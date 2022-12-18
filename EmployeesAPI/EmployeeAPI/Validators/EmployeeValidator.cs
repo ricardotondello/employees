@@ -2,7 +2,7 @@
 
 namespace EmployeeAPI.Validators
 {
-    public class EmployeeValidator : AbstractValidator<Contracts.Input.Employee>
+    public class EmployeeValidator : AbstractValidator<Employee.Contracts.Input.Employee>
     {
         public EmployeeValidator()
         {

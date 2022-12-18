@@ -1,8 +1,8 @@
-﻿using EmployeeAPI.Application.Interfaces.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using EmployeeAPI.Contracts.Output;
+using Employee.Application.Interfaces.Services;
+using Employee.Contracts.Output;
 using EmployeeAPI.Mapper;
 using EmployeeAPI.Validators;
 
@@ -50,7 +50,7 @@ namespace EmployeeAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Region))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> PostAsync([FromBody, Required] Contracts.Input.Region region)
+        public async Task<IActionResult> PostAsync([FromBody, Required] Employee.Contracts.Input.Region region)
         {
             var validation = await RegionValidator.ValidateAsync(region);
             if (!validation.IsValid)
@@ -67,7 +67,7 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpGet("{id}/employees")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.EmployeeAggregate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Employee.Contracts.Output.EmployeeAggregate))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PostAsync([FromRoute, Required] int id)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
-using EmployeeAPI.Application.Interfaces.Services;
+using Employee.Application.Interfaces.Services;
 using EmployeeAPI.Mapper;
 using EmployeeAPI.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +24,7 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.Employee))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Employee.Contracts.Output.Employee))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAsync([FromRoute, Required] Guid id)
@@ -44,10 +44,10 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Contracts.Output.Employee))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Employee.Contracts.Output.Employee))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> GetAsync([FromBody, Required] Contracts.Input.Employee employee)
+        public async Task<IActionResult> GetAsync([FromBody, Required] Employee.Contracts.Input.Employee employee)
         {
             var validation = await EmployeeValidator.ValidateAsync(employee);
             if (!validation.IsValid)
@@ -64,7 +64,7 @@ namespace EmployeeAPI.Controllers
         }
         
         [HttpGet("All")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Contracts.Output.Employee>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Employee.Contracts.Output.Employee>))]
         public async Task<IActionResult> GetAllAsync()
         {
             var maybeEmployees = await _employeeService.GetAllAsync();

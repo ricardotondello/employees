@@ -5,21 +5,21 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Domain", "Employee.Domain\Employee.Domain.csproj", "{F3BEF948-EF73-48C6-BD9B-44DF8F7E06BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesAPI.Entities", "EmployeesAPI.Entities\EmployeesAPI.Entities.csproj", "{15098245-B240-4DA5-9A8E-724D2AD6A2F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Entities", "Employee.Entities\Employee.Entities.csproj", "{15098245-B240-4DA5-9A8E-724D2AD6A2F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Application", "EmployeeAPI.Application\EmployeeAPI.Application.csproj", "{262923EA-A8F3-4EBC-9572-CECE96C72C07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Application", "Employee.Application\Employee.Application.csproj", "{262923EA-A8F3-4EBC-9572-CECE96C72C07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Application.Interfaces", "EmployeeAPI.Application.Interfaces\EmployeeAPI.Application.Interfaces.csproj", "{FB09399C-9AF9-4D95-9014-E29A498A9525}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Application.Interfaces", "Employee.Application.Interfaces\Employee.Application.Interfaces.csproj", "{FB09399C-9AF9-4D95-9014-E29A498A9525}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Infrastructure.DataBase", "EmployeeAPI.Infrastructure.DataBase\EmployeeAPI.Infrastructure.DataBase.csproj", "{F542257B-0E87-4873-9547-BF0AC1A2070E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Infrastructure.DataBase", "Employee.Infrastructure.DataBase\Employee.Infrastructure.DataBase.csproj", "{F542257B-0E87-4873-9547-BF0AC1A2070E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI.Contracts", "EmployeeAPI.Contracts\EmployeeAPI.Contracts.csproj", "{A8880078-39AF-4BB5-9085-AA7648013B84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Contracts", "Employee.Contracts\Employee.Contracts.csproj", "{A8880078-39AF-4BB5-9085-AA7648013B84}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeAPI", "EmployeeAPI\EmployeeAPI.csproj", "{E8969EC7-0B48-453F-998F-4E77DED4997E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employee.Toolkit", "Employee.Toolkit\Employee.Toolkit.csproj", "{9E29BCF8-5EF2-494F-9262-98837CF1CCC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeAPI.Tests", "EmployeeAPI.Tests\EmployeeAPI.Tests.csproj", "{75FD2F85-44A7-44D1-8571-B1E468A7B2F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.Tests", "Employee.Tests\Employee.Tests.csproj", "{75FD2F85-44A7-44D1-8571-B1E468A7B2F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
