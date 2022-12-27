@@ -23,6 +23,7 @@ public class RegionRepository : IRegionRepository
         var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
         if (hasValue)
         {
+            _context.ChangeTracker.Clear();
             _context.Regions.Update(entity);
         }
         else
