@@ -41,7 +41,7 @@ public class DbInitializer
             var regionId = int.Parse(values?[0]!);
             var name = values?[1]!;
             var surname = values?[2]!;
-            var employee = new Employees.Entities.Employee(name, surname, regionId);
+            var employee = new Employees.Entities.Employee(Guid.NewGuid(), name, surname, regionId);
             employees.Add(employee);
         }
 

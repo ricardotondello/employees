@@ -16,5 +16,5 @@ public class Employee
     }
 
     public static Employee Create(Guid id, string name, string surname, Region region) =>
-        new(Guid.NewGuid(), name, surname, region);
+        new(id, name, surname, region);
 }

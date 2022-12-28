@@ -1,4 +1,5 @@
-﻿using Employee.Infrastructure.DataBase.Mappers;
+﻿using System;
+using Employee.Infrastructure.DataBase.Mappers;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ public class EntityToDomainTests
     [Test]
     public void Employee_EntityToDomain_NotNull()
     {
-        var entity = new Employees.Entities.Employee("name", "surname", 1);
+        var entity = new Employees.Entities.Employee(Guid.NewGuid(), "name", "surname", 1);
         var result = entity.ToDomain();
         result.Should().NotBeNull();
         result.Id.Should().NotBeEmpty();

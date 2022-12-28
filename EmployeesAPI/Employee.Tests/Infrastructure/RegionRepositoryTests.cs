@@ -16,7 +16,6 @@ namespace Employee.Tests.Infrastructure;
 [TestFixture]
 public class RegionRepositoryTests
 {
-
     private static IRegionRepository _regionRepository;
     private static DataBaseCtx _dataBaseCtx;
     

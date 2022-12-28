@@ -15,9 +15,9 @@ public sealed class Employee
     public Region Region { get; set; }
     public int? RegionId { get; set; }
 
-    public Employee(string name, string surname, int? regionId)
+    public Employee(Guid id, string name, string surname, int? regionId)
     {
-        Id = Guid.NewGuid();
+        Id = id;
         Name = name;
         Surname = surname;
         RegionId = regionId;

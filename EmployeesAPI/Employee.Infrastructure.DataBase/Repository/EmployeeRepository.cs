@@ -23,6 +23,7 @@ public class EmployeeRepository : IEmployeeRepository
 
         if (hasEmployee)
         {
+            _context.ChangeTracker.Clear();
             _context.Employees.Update(entity);
         }
         else
