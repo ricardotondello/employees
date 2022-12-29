@@ -117,4 +117,17 @@ public class EmployeeRepositoryTests
         maybeEmployee.IsSome().Should().BeTrue();
         maybeEmployee.Value().Should().BeEquivalentTo(employee);
     }
+    
+    [Test]
+    public async Task WhenGetEmployeesByRegionAsync_ShouldReturnNoneWhenRegionDoestExists()
+    {
+        //Arrange
+        
+        //Act
+        var employees = await _employeeRepository.GetEmployeesByRegionAsync(2);
+
+        //Assert
+        employees.Should().BeEmpty();
+    }
+
 }
