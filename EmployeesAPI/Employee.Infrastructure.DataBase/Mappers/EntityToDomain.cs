@@ -8,21 +8,19 @@ public static class EntityToDomain
         region == null
             ? null
             : Region.Create(region.Id, region.Name,
-                region is {ParentId: { }, Parent: { }}
+                region is { ParentId: not null, Parent: not null }
                     ? Region.Create(region.Parent.Id, region.Parent.Name, null)
                     : null);
 
-    public static IEnumerable<Employee.Domain.Region> ToDomain(
-        this IEnumerable<Employees.Entities.Region> regions) =>
+    public static IEnumerable<Employee.Domain.Region> ToDomain(this IEnumerable<Employees.Entities.Region> regions) =>
         regions.Select(s => s.ToDomain());
 
     public static Employee.Domain.Employee ToDomain(this Employees.Entities.Employee employee) =>
         employee == null
             ? null
-            : Employee.Domain.Employee.Create(employee.Id, employee.Name, employee.Surname,
-                employee.Region.ToDomain());
+            : Employee.Domain.Employee.Create(employee.Id, employee.Name, employee.Surname, employee.Region.ToDomain());
 
     public static IEnumerable<Employee.Domain.Employee> ToDomain(
-        this IEnumerable<Employees.Entities.Employee> employees)
-        => employees.Select(s => s.ToDomain());
+        this IEnumerable<Employees.Entities.Employee> employees) =>
+        employees.Select(s => s.ToDomain());
 }

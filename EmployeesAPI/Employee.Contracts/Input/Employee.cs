@@ -16,6 +16,5 @@ public class Employee
         Surname = surname;
     }
 
-    public static Employee Create(string name, string surname, int regionId) =>
-        new Employee(name, surname, regionId);
+    public static Employee Create(string name, string surname, int regionId) => new(name, surname, regionId);
 }

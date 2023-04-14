@@ -18,6 +18,5 @@ public class RegionService : IRegionService
 
     public Task<Option<Region>> GetByIdAsync(int id) => _regionRepository.GetByIdAsync(id);
 
-    public Task<IEnumerable<Region>> GetAllAsync()
-        => _regionRepository.GetAllAsync();
+    public Task<IEnumerable<Region>> GetAllAsync() => _regionRepository.GetAllAsync();
 }

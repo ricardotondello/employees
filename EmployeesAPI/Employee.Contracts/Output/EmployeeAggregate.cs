@@ -14,6 +14,5 @@ public class EmployeeAggregate
         Regions = regions ?? Enumerable.Empty<Region>();
     }
 
-    public static EmployeeAggregate Create(string fullName, IEnumerable<Region> regions) =>
-        new EmployeeAggregate(fullName, regions);
+    public static EmployeeAggregate Create(string fullName, IEnumerable<Region> regions) => new(fullName, regions);
 }

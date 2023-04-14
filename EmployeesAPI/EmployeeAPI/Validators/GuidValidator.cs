@@ -6,8 +6,6 @@ namespace EmployeeAPI.Validators
     {
         public GuidValidator(string parameterName)
         {
-            CascadeMode = CascadeMode.Stop;
-
             RuleFor(id => id)
                 .NotEmpty()
                 .Must(g => g != Guid.Empty)

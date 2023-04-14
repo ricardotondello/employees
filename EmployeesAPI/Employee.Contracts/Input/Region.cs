@@ -18,5 +18,5 @@ public class Region
         RegionId = regionId;
     }
 
-    public static Region Create(int id, string name, int? regionId) => new Region(id, name, regionId);
+    public static Region Create(int id, string name, int? regionId) => new(id, name, regionId);
 }

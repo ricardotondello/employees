@@ -17,7 +17,10 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Option<Employee.Domain.Employee>> CreateEmployeeAsync(Employee.Domain.Employee employee)
     {
-        var hasEmployee = await _context.Employees.Include(i => i.Region).AnyAsync(s => s.Id == employee.Id);
+        var hasEmployee = await _context.Employees
+            .AsNoTracking()
+            .Include(i => i.Region)
+            .AnyAsync(s => s.Id == employee.Id);
         var entity = employee.ToEntity();
         var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
 
@@ -41,18 +44,20 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Option<Employee.Domain.Employee>> GetByIdAsync(Guid id)
     {
-        var employee = await _context.Employees.Include(i => i.Region).FirstOrDefaultAsync(s => s.Id == id);
-        if (employee != null)
-        {
-            return Option<Employee.Domain.Employee>.Some(employee.ToDomain());
-        }
-
-        return Option<Employee.Domain.Employee>.None;
+        var employee = await _context.Employees
+            .AsNoTracking()
+            .Include(i => i.Region)
+            .FirstOrDefaultAsync(s => s.Id == id);
+        
+        return employee != null 
+            ? Option<Employee.Domain.Employee>.Some(employee.ToDomain()) 
+            : Option<Employee.Domain.Employee>.None;
     }
 
     public async Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId)
     {
         var region = await _context.Regions
+            .AsNoTracking()
             .SingleOrDefaultAsync(s => s.Id == regionId);
 
 

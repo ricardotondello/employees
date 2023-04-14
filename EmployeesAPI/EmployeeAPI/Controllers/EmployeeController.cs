@@ -14,8 +14,8 @@ namespace EmployeeAPI.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly ILogger<EmployeeController> _logger;
-        private static readonly GuidValidator GuidValidator = new GuidValidator("Employee Id");
-        private static readonly EmployeeValidator EmployeeValidator = new EmployeeValidator();
+        private static readonly GuidValidator GuidValidator = new("Employee Id");
+        private static readonly EmployeeValidator EmployeeValidator = new();
 
         public EmployeeController(IEmployeeService employeeService, ILogger<EmployeeController> logger)
         {
@@ -32,7 +32,7 @@ namespace EmployeeAPI.Controllers
             var validation = await GuidValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
-                _logger.LogWarning("GuidValidator Validation Failed, Errors:{errors}", 
+                _logger.LogWarning("GuidValidator Validation Failed, Errors:{Errors}",
                     validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
@@ -52,7 +52,7 @@ namespace EmployeeAPI.Controllers
             var validation = await EmployeeValidator.ValidateAsync(employee);
             if (!validation.IsValid)
             {
-                _logger.LogWarning("EmployeeValidator Validation Failed, Errors:{errors}",
+                _logger.LogWarning("EmployeeValidator Validation Failed, Errors:{Errors}",
                     validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
@@ -62,7 +62,7 @@ namespace EmployeeAPI.Controllers
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Value().ToContract())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
-        
+
         [HttpGet("All")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Employee.Contracts.Output.Employee>))]
         public async Task<IActionResult> GetAllAsync()

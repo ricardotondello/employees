@@ -6,8 +6,6 @@ namespace EmployeeAPI.Validators
     {
         public IdValidator(string parameterName)
         {
-            CascadeMode = CascadeMode.Stop;
-
             RuleFor(id => id)
                 .GreaterThan(0)
                 .WithMessage($"{parameterName} is invalid");

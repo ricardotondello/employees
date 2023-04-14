@@ -7,8 +7,6 @@ public class DbInitializer
 {
     public static void Initialize(DataBaseCtx context)
     {
-        context.Database.EnsureCreated();
-
         if (!context.Regions.Any())
         {
             var regions = ReadRegionCsv().ToList();
@@ -18,7 +16,7 @@ public class DbInitializer
         }
 
         if (context.Employees.Any()) return;
-            
+
         var employees = ReadEmployeesCsv().ToList();
         context.Employees.AddRange(employees);
         context.SaveChanges();
@@ -63,9 +61,7 @@ public class DbInitializer
         {
             var values = recNum.Current;
 
-            var parentId = values!.Length > 1
-                ? int.TryParse(values[2], out var value) ? value : null
-                : (int?) null;
+            var parentId = values!.Length > 1 ? int.TryParse(values[2], out var value) ? value : null : (int?)null;
             var id = int.Parse(values[1]);
             var name = values[0];
             var region = new Region(id, name, parentId);

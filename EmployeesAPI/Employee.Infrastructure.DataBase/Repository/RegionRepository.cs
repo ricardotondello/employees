@@ -18,7 +18,10 @@ public class RegionRepository : IRegionRepository
 
     public async Task<Option<Region>> CreateRegionAsync(Region region)
     {
-        var hasValue = await _context.Regions.AnyAsync(s => s.Id == region.Id);
+        var hasValue = await _context.Regions
+            .AsNoTracking()
+            .AnyAsync(s => s.Id == region.Id);
+        
         var entity = region.ToEntity();
         var transaction = await _context.Database.BeginTransactionAsync(IsolationLevel.Serializable);
         if (hasValue)
@@ -40,7 +43,11 @@ public class RegionRepository : IRegionRepository
 
     public async Task<Option<Region>> GetByIdAsync(int id)
     {
-        var region = await _context.Regions.Include(i => i.Parent).SingleOrDefaultAsync(s => s.Id == id);
+        var region = await _context.Regions
+            .AsNoTracking()
+            .Include(i => i.Parent)
+            .SingleOrDefaultAsync(s => s.Id == id);
+        
         return region != null
             ? Option<Region>.Some(region.ToDomain())
             : Option<Region>.None;
@@ -48,7 +55,10 @@ public class RegionRepository : IRegionRepository
 
     public async Task<IEnumerable<Region>> GetAllAsync()
     {
-        var regions = await _context.Regions.Include(i => i.Parent).ToListAsync();
+        var regions = await _context.Regions
+            .AsNoTracking()
+            .Include(i => i.Parent)
+            .ToListAsync();
         return regions.ToDomain();
     }
 }

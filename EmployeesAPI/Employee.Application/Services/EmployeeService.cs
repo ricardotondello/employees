@@ -21,7 +21,6 @@ namespace Employee.Application.Services
         public Task<IEnumerable<Employee.Domain.Employee>> GetEmployeesByRegionAsync(int regionId) =>
             _employeeRepository.GetEmployeesByRegionAsync(regionId);
 
-        public Task<IEnumerable<Employee.Domain.Employee>> GetAllAsync()
-            => _employeeRepository.GetAllAsync();
+        public Task<IEnumerable<Employee.Domain.Employee>> GetAllAsync() => _employeeRepository.GetAllAsync();
     }
 }

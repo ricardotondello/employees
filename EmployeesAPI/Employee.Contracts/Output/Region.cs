@@ -14,5 +14,5 @@ public class Region
         Name = name;
     }
 
-    public static Region Create(int id, string name) => new Region(id, name);
+    public static Region Create(int id, string name) => new(id, name);
 }

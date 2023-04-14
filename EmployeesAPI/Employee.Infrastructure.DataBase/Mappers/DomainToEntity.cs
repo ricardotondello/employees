@@ -10,7 +10,5 @@ public static class DomainToEntity
             : new Employees.Entities.Employee(domain.Id, domain.Name, domain.Surname, domain.Region.Id);
 
     public static Employees.Entities.Region ToEntity(this Region region) =>
-        region == null
-            ? null
-            : new Employees.Entities.Region(region.Id, region.Name, region.Parent?.Id);
+        region == null ? null : new Employees.Entities.Region(region.Id, region.Name, region.Parent?.Id);
 }

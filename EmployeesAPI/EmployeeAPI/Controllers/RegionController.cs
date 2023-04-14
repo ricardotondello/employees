@@ -16,10 +16,11 @@ namespace EmployeeAPI.Controllers
         private readonly IRegionService _regionService;
         private readonly IEmployeeService _employeeService;
         private readonly ILogger<RegionController> _logger;
-        private static readonly IdValidator IdValidator = new IdValidator("Region Id");
-        private static readonly RegionValidator RegionValidator = new RegionValidator();
+        private static readonly IdValidator IdValidator = new("Region Id");
+        private static readonly RegionValidator RegionValidator = new();
 
-        public RegionController(IRegionService regionService, IEmployeeService employeeService, ILogger<RegionController> logger)
+        public RegionController(IRegionService regionService, IEmployeeService employeeService,
+            ILogger<RegionController> logger)
         {
             _regionService = regionService;
             _employeeService = employeeService;
@@ -35,7 +36,7 @@ namespace EmployeeAPI.Controllers
             var validation = await IdValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
-                _logger.LogWarning("IdValidator Validation Failed, Errors:{errors}",
+                _logger.LogWarning("IdValidator Validation Failed, Errors:{Errors}",
                     validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
@@ -55,7 +56,7 @@ namespace EmployeeAPI.Controllers
             var validation = await RegionValidator.ValidateAsync(region);
             if (!validation.IsValid)
             {
-                _logger.LogWarning("RegionValidator Validation Failed, Errors:{errors}",
+                _logger.LogWarning("RegionValidator Validation Failed, Errors:{Errors}",
                     validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
@@ -67,7 +68,7 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpGet("{id}/employees")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Employee.Contracts.Output.EmployeeAggregate))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EmployeeAggregate))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PostAsync([FromRoute, Required] int id)
@@ -75,17 +76,17 @@ namespace EmployeeAPI.Controllers
             var validation = await IdValidator.ValidateAsync(id);
             if (!validation.IsValid)
             {
-                _logger.LogWarning("IdValidator Validation Failed, Errors:{errors}",
+                _logger.LogWarning("IdValidator Validation Failed, Errors:{Errors}",
                     validation.Errors.Select(x => x.ErrorMessage));
                 return CreateResponse(HttpStatusCode.BadRequest, validation.Errors.Select(x => x.ErrorMessage));
             }
 
-            var maybeEmployee = await _employeeService.GetEmployeesByRegionAsync(id);
+            var maybeEmployee = (await _employeeService.GetEmployeesByRegionAsync(id)).ToList();
             return maybeEmployee.Any()
                 ? CreateResponse(HttpStatusCode.OK, maybeEmployee.Select(s => s.ToAggregateContract()).ToList())
                 : CreateResponse(HttpStatusCode.NoContent);
         }
-        
+
         [HttpGet("All")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Region>))]
         public async Task<IActionResult> GetAllAsync()

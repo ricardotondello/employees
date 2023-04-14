@@ -9,9 +9,8 @@ using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-    .ConfigureContainer<ContainerBuilder>(containerBuilder
-        =>
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).ConfigureContainer<ContainerBuilder>(
+    containerBuilder =>
     {
         containerBuilder.RegisterModule(new ApplicationModule());
         containerBuilder.RegisterModule(new RepositoryModule());
@@ -19,10 +18,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     });
 
 builder.Services.AddDbContext<DataBaseCtx>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!)
-        .EnableSensitiveDataLogging(true));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!).EnableSensitiveDataLogging());
 
-// Add services to the container.
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddControllers();
@@ -33,27 +30,24 @@ builder.Services.AddSwaggerGen(options => { options.CustomSchemaIds(type => type
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
-        policyBuilder =>
-        {
-            policyBuilder.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
+        policyBuilder => { policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 });
 
-// NLog: Setup NLog for Dependency injection
 builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Logging.SetMinimumLevel(LogLevel.Trace);
 builder.Host.UseNLog();
 
 var app = builder.Build();
 
-if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]!))
+if (app.Environment.IsDevelopment())
 {
     CreateDbIfNotExists(app);
 }
 
-// Configure the HTTP request pipeline.
+if (bool.Parse(builder.Configuration["ShouldSeedDataBase"]!))
+{
+    SeedDataBase(app);
+}
 
 app.UseHttpsRedirection();
 
@@ -71,12 +65,17 @@ if (app.Environment.IsDevelopment())
 
 app.Run();
 
-static void CreateDbIfNotExists(IHost host)
+static DataBaseCtx CreateDbIfNotExists(IHost host)
 {
-    using (var scope = host.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        var context = services.GetRequiredService<DataBaseCtx>();
-        DbInitializer.Initialize(context);
-    }
+    using var scope = host.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<DataBaseCtx>();
+    context.Database.EnsureCreated();
+    return context;
+}
+
+static void SeedDataBase(IHost host)
+{
+    var context = CreateDbIfNotExists(host);
+    DbInitializer.Initialize(context);
 }

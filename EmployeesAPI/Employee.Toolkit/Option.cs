@@ -11,7 +11,7 @@
         private Option(T value)
         {
             _value = value;
-            _isSome = _value is { };
+            _isSome = _value is not null;
         }
 
         public bool IsSome()
