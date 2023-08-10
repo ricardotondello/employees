@@ -5,21 +5,27 @@ namespace Employee.Infrastructure.DataBase.Initializer;
 
 public class DbInitializer
 {
-    public static void Initialize(DataBaseCtx context)
+    private readonly DataBaseCtx _context;
+
+    public DbInitializer(DataBaseCtx context)
     {
-        if (!context.Regions.Any())
+        _context = context;
+    }
+    public void Initialize()
+    {
+        if (!_context.Regions.Any())
         {
             var regions = ReadRegionCsv().ToList();
 
-            context.Regions.AddRange(regions);
-            context.SaveChanges();
+            _context.Regions.AddRange(regions);
+            _context.SaveChanges();
         }
 
-        if (context.Employees.Any()) return;
+        if (_context.Employees.Any()) return;
 
         var employees = ReadEmployeesCsv().ToList();
-        context.Employees.AddRange(employees);
-        context.SaveChanges();
+        _context.Employees.AddRange(employees);
+        _context.SaveChanges();
     }
 
     private static IEnumerable<Employees.Entities.Employee> ReadEmployeesCsv()
@@ -30,20 +36,10 @@ public class DbInitializer
             return Enumerable.Empty<Employees.Entities.Employee>();
         }
 
-        var employees = new List<Employees.Entities.Employee>();
-        using var r = new ChoCSVLiteReader();
-        using var recNum = r.ReadFile(filename).GetEnumerator();
-        while (recNum.MoveNext())
-        {
-            var values = recNum.Current;
-            var regionId = int.Parse(values?[0]!);
-            var name = values?[1]!;
-            var surname = values?[2]!;
-            var employee = new Employees.Entities.Employee(Guid.NewGuid(), name, surname, regionId);
-            employees.Add(employee);
-        }
-
-        return employees;
+        return new ChoCSVReader(filename)
+            .WithFirstLineHeader()
+            .Select(e => new Employees.Entities.Employee(Guid.NewGuid(), e.Name, e.Surname, int.Parse(e.RegionId)))
+            .ToList();
     }
 
     private static IEnumerable<Region> ReadRegionCsv()
@@ -54,20 +50,9 @@ public class DbInitializer
             return Enumerable.Empty<Region>();
         }
 
-        var regions = new List<Region>();
-        using var r = new ChoCSVLiteReader();
-        using var recNum = r.ReadFile(filename).GetEnumerator();
-        while (recNum.MoveNext())
-        {
-            var values = recNum.Current;
-
-            var parentId = values!.Length > 1 ? int.TryParse(values[2], out var value) ? value : null : (int?)null;
-            var id = int.Parse(values[1]);
-            var name = values[0];
-            var region = new Region(id, name, parentId);
-            regions.Add(region);
-        }
-
-        return regions;
+        return new ChoCSVReader(filename)
+            .WithFirstLineHeader()
+            .Select(s => new Region(int.Parse(s.Id), s.Name, int.TryParse(s.ParentId, out int parentId) ? parentId : (int?)null))
+            .ToList();
     }
 }

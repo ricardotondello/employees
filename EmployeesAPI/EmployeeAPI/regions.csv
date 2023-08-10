@@ -1,3 +1,4 @@
+Name,Id,ParentId
 Africa,2,
 Afghanistan,4,34
 South America,5,19
@@ -69,7 +70,7 @@ Chile,152,5
 Northern Europe,154,150
 Western Europe,155,150
 China,156,30
-"Taiwan, Province of China",158,30
+Taiwan Province of China,158,30
 Christmas Island,162,
 Cocos (Keeling) Islands,166,
 Colombia,170,5
@@ -98,7 +99,7 @@ Falkland Islands (Malvinas),238,5
 South Georgia and the South Sandwich Islands,239,
 Fiji,242,54
 Finland,246,154
-Åland Islands,248,154
+ï¿½land Islands,248,154
 France,250,155
 French Guiana,254,5
 French Polynesia,258,61
@@ -107,7 +108,7 @@ Djibouti,262,14
 Gabon,266,17
 Georgia,268,145
 Gambia,270,11
-"Palestine, State of",275,145
+Palestine State of,275,145
 Germany,276,155
 Ghana,288,11
 Gibraltar,292,39
@@ -134,7 +135,7 @@ Iraq,368,145
 Ireland,372,154
 Israel,376,145
 Italy,380,39
-Côte d'Ivoire,384,11
+Cï¿½te d'Ivoire,384,11
 Jamaica,388,29
 Japan,392,30
 Kazakhstan,398,143
@@ -176,10 +177,10 @@ Namibia,516,18
 Nauru,520,57
 Nepal,524,34
 Netherlands,528,155
-Curaçao,531,29
+Curaï¿½ao,531,29
 Aruba,533,29
 Sint Maarten (Dutch part),534,29
-"Bonaire, Sint Eustatius and Saba",535,29
+Bonaire Sint Eustatius and Saba,535,29
 New Caledonia,540,54
 Vanuatu,548,54
 New Zealand,554,53
@@ -207,12 +208,12 @@ Guinea-Bissau,624,11
 Timor-Leste,626,35
 Puerto Rico,630,29
 Qatar,634,145
-Réunion,638,14
+Rï¿½union,638,14
 Romania,642,151
 Russian Federation,643,151
 Rwanda,646,14
-Saint Barthélemy,652,29
-"Saint Helena, Ascension and Tristan da Cunha",654,11
+Saint Barthï¿½lemy,652,29
+Saint Helena Ascension and Tristan da Cunha,654,11
 Saint Kitts and Nevis,659,29
 Anguilla,660,29
 Saint Lucia,662,29
@@ -263,7 +264,7 @@ United Kingdom of Great Britain and Northern Ireland,826,154
 Guernsey,831,154
 Jersey,832,154
 Isle of Man,833,154
-"Tanzania, United Republic of",834,14
+Tanzania United Republic of,834,14
 United States of America,840,21
 Virgin Islands (U.S.),850,29
 Burkina Faso,854,11

@@ -20,6 +20,8 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()).Conf
 builder.Services.AddDbContext<DataBaseCtx>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")!).EnableSensitiveDataLogging());
 
+builder.Services.AddSingleton(provider => new DbInitializer(provider.GetRequiredService<DataBaseCtx>()));
+
 const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddControllers();
@@ -64,18 +66,21 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+return;
 
-static DataBaseCtx CreateDbIfNotExists(IHost host)
+static void CreateDbIfNotExists(IHost host)
 {
     using var scope = host.Services.CreateScope();
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<DataBaseCtx>();
     context.Database.EnsureCreated();
-    return context;
 }
 
 static void SeedDataBase(IHost host)
 {
-    var context = CreateDbIfNotExists(host);
-    DbInitializer.Initialize(context);
+    using var scope = host.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var initializer = services.GetRequiredService<DbInitializer>();
+    
+    initializer.Initialize();
 }
